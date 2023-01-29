@@ -1,0 +1,14 @@
+// @version=2
+study("Smart Money Indicator", overlay=true)
+
+// Inputs
+length = input(title="Length", type=integer, defval=14)
+
+// Calculate money flow index
+mfi = moneyflowindex(length)
+
+// Plot MFI
+plot(mfi, color=blue, linewidth=2)
+
+// Add crossover signals
+crossover = crossover(mfi, 50)
