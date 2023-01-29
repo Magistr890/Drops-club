@@ -1,0 +1,24 @@
+// @version=2
+study("Smart Money Indicator")
+
+// Inputs
+length = input(title="Length", type=integer, defval=14)
+
+// Calculate money flow index
+plusDM = EMA(max(high - high[1], 0), length)
+minusDM = EMA(max(low[1] - low, 0), length)
+
+sumDM = plusDM + minusDM
+ATR = EMA(sumDM, length)
+
+mfi = 100 - (100 / (1 + (plusDM / minusDM)))
+
+// Plot MFI
+plot(mfi, color=blue, linewidth=2)
+
+// Add crossover signals
+crossover = crossover(mfi, 50)
+if (crossover == 1)
+  label.new(bar_index, mfi, "Buy", color=color.green, style=label.style_lable_up)
+if (crossover == -1)
+  label.new(bar_index, mfi, "Sell", color=color.red, style=label.style_lable_down)
