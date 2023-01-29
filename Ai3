@@ -1,0 +1,17 @@
+study("Smart Money Indicator")
+
+// Inputs
+length = input(14, title="Length")
+
+// Calculate money flow index
+mfi = moneyflowindex(length)
+
+// Plot MFI
+plot(mfi, color=blue)
+
+// Add crossover signals
+crossover = crossover(mfi, 50)
+if (crossover == 1)
+  alert("Buy")
+if (crossover == -1)
+  alert("Sell")
